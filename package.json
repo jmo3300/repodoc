@@ -39,9 +39,9 @@
     "yargs": "^15.3.1"
   },
   "files":[
-    "build",
-    "example",
-    "templates",
+    "build/*",
+    "example/**/*",
+    "templates/*",
     "readme.md"
   ]
 }
