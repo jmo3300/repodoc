@@ -1,6 +1,6 @@
 {
   "name": "repodoc",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "creates a overview site for a monorepo",
   "main": "rpd.js",
   "bin": {
@@ -13,7 +13,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["repodoc", "compodoc", "angular", "documentation generator"],
+  "keywords": [
+    "repodoc",
+    "compodoc",
+    "angular",
+    "documentation generator"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
