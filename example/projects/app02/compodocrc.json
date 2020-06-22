@@ -1,0 +1,11 @@
+{
+    "$schema": "./node_modules/@compodoc/compodoc/src/config/schema.json",
+    "tsconfig": "../tsconfig.json",
+    "output": "./compodoc",
+    "name": "app 2 for compodoc testing",
+    "disablePrivate": true,
+    "disableProtected": true,
+    "hideGenerator": false,
+    "includes": "./docs",
+    "includesName": "Further Informations"
+}

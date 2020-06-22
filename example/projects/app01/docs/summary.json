@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Development Log",
+        "file": "dev_log.md"
+    },
+    {
+        "title": "Issues",
+        "file": "issues.md",
+        "children": [
+            {
+                "title": "Issues A",
+                "file": "issues/issues-a.md"
+            },
+            {
+                "title": "Issues B",
+                "file": "issues/issues-b.md"
+            }
+        ]
+    }
+]

@@ -1,0 +1,41 @@
+{
+  "name": "repodoc",
+  "version": "0.0.7",
+  "description": "creates a overview site for a monorepo",
+  "main": "rpd.js",
+  "bin": {
+    "repodoc": "./build/repodoc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jmo3300/repodoc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/auth-basic": "^1.4.5",
+    "@octokit/rest": "^18.0.0",
+    "@types/clear": "^0.1.0",
+    "@types/figlet": "^1.2.0",
+    "@types/inquirer": "^6.5.0",
+    "@types/yargs": "^15.0.5",
+    "chalk": "^4.1.0",
+    "clear": "^0.1.0",
+    "clui": "^0.3.6",
+    "configstore": "^5.0.1",
+    "figlet": "^1.4.0",
+    "fs-extra": "^9.0.1",
+    "handlebars": "^4.7.6",
+    "inquirer": "^7.2.0",
+    "lodash": "^4.17.15",
+    "minimist": "^1.2.5",
+    "simple-git": "^2.6.0",
+    "touch": "^3.1.0",
+    "valid-filename": "^3.1.0",
+    "yargs": "^15.3.1"
+  }
+}
