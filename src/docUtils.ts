@@ -1,3 +1,8 @@
+/**
+ * This is the doc comment for docUtils.ts
+ * @packageDocumentation
+ */
+
 import fse from 'fs-extra';
 import path from 'path';
 
@@ -8,37 +13,37 @@ import * as fu from './fsUtils';
 
 
 /**
- * Creates the html file with 
+ * Creates the Documentation, in detail  
  * 
- * - description of and 
- * - link to the docs of 
+ * - creates html file with an entry for each app including 
+ *   - a link to app's documentation
+ *   - brief description of the app fetched app's from readme.md
+ *   - other details of the app availabe in the projects file (usually angular.json)  
+
+ * - copies the documentation of all apps (if desired)
  * 
- * all projects within the monorepo.
+ * API/Entry point of that module.
  * 
- * Copies the docs of all projects to the output directory, if desired.
- * 
- * API of that module.
- * 
- * @param {Params}  params  Parameter which controls the process   
+ * @param {Params}  params  Parameter which controls the creation process   
  * 
  * @returns nothing (for instance) but consumes the params by logging them to the console
  * 
  * throws an error if 
  * 
- * - an error arises during creation process
+ * - errors arises during creation process in other modules
  * 
  */
 export function createDoc(params:Params){
-Promise.all([
+    Promise.all([
         getTemplate(String(params.templatesDir),String(params.templateFile)),
         getProjects(String(params.repoDir),String(params.projectsFile))
-            .then(projects => addPurposes(projects, String(params.repoDir)))
-            .then(projects => fetchProjectsDocs(projects, params.copyProjectsDocs, String(params.projectsDocsDir), String(params.repoDir), String(params.outputDir)))
+            .then(projects => addProjectDescriptions(projects, params))
+            .then(projects => fetchProjectsDocs(projects, params))
     ])
         .then((values:any) => {
             const template = values[0];
             const projects = values[1];
-            return getHtmlString(template, projects);
+            return createHtmlString(template, projects);
             
         })
         .then(htmlString => writeHtmlFile(htmlString, String(params.outputDir), String(params.outputFile)))
@@ -102,36 +107,36 @@ return new Promise<JSON>((resolve, reject) => {
 }
 
 /**
-* Extracts apps' brief description from a text (which usually comes from apps' readme.md).
+* Extracts app's brief description from a text (which usually comes from app's readme.md).
  * 
- * @param {string} sourceText   The text the function extract the purpose/brief description from.   
+ * @param {string} sourceText   The text the function extract the brief description from.   
  * 
- * @returns {string} Apps' brief description (if exists)
+ * @returns {string} App's brief description (if exists)
  * 
  * throws an error if
  *  
- * - Chapter '## Project Purpose' cannot be not found. (The chapter the description is being fetched from.)
+ * - Chapter '<chapter title>' cannot be not found.
  * 
  */
-function extractPurpose(sourceText:string):string {
-    const project_purpose_title = "Project Purpose"
-    const header_mark = "##"
-    const search_title = header_mark + " " + project_purpose_title;
-    let project_purpose_title_offset = sourceText.indexOf(search_title);
-    if (project_purpose_title_offset<0) {
-        throw new Error(`Chapter '${search_title}' not found`)
+function extractProjectDescription(sourceText:string, params:Params):string {
+    const description_title = String(params.projectsDescriptionTitle)
+    const header_mark = "#"
+    const search_title = header_mark + " " + description_title;
+    let description_title_offset = sourceText.indexOf(search_title);
+    if (description_title_offset<0) {
+        throw new Error(`Chapter '${description_title}' not found`)
     }
-    project_purpose_title_offset = project_purpose_title_offset + 3; // add line feeds
+    description_title_offset = description_title_offset + 3; // add line feeds
 
-    let project_purpose_text = sourceText.substring(project_purpose_title_offset + project_purpose_title.length,sourceText.length).trim();
-    let project_purpose_text_length = sourceText.length;
-    project_purpose_text_length = project_purpose_text.indexOf(header_mark);
-    project_purpose_text = project_purpose_text.substring(0, project_purpose_text_length).trim();
-    return project_purpose_text;
+    let description_text = sourceText.substring(description_title_offset + description_title.length,sourceText.length).trim();
+    let descpription_length = sourceText.length;
+    descpription_length = description_text.indexOf(header_mark);
+    description_text = description_text.substring(0, descpription_length).trim();
+    return description_text;
 }
 
 /**
- * Reads the file (usually is apps' readme.md) containing apps' purpose/brief description
+ * Reads the file (usually app's readme.md) containing app's brief description
  * 
  * @param {string} readmeFile   Name of the file to be read   
  * 
@@ -145,17 +150,18 @@ function extractPurpose(sourceText:string):string {
  * throws no error(s)
   *  
  */
-function getPurpose (readmeFile:string):Promise<string> {
+function getProjectDescription (project:any,params:Params):Promise<string> {
     return new Promise<string>(async (resolve) => {
-        fse.readFile(readmeFile, (error:any, data:any) => {
+        const inputFile:string = path.join(String(params.repoDir),project.root, "readme.md");
+        fse.readFile(inputFile, (error:any, data:any) => {
             if (error) {
                 console.warn(`cannot read file (${error})`)
                 resolve("no descrption due to missing file")
             }else{
                 try{
-                    resolve(extractPurpose(data.toString()))
+                    resolve(extractProjectDescription(data.toString(),params))
                 }catch(error){
-                    console.warn(`no description due to ${error} in file ${readmeFile}`)
+                    console.warn(`no description due to ${error} in file ${inputFile}`)
                     resolve(`no description due to ${error}`)
                 }
             }
@@ -164,52 +170,22 @@ function getPurpose (readmeFile:string):Promise<string> {
 }
 
 /**
- * Adds a property 'purpose' to all project objects
+ * Adds a property 'repodocDescription' to all project objects
  * 
  * @param   {any} projects  an object with enumerable string objects (an object for each project, angular.json structure)
- * @param   {any} repoDir   mono repo directory (, where the multi project project resides)
+ * @param   {Params} params   parameters for controlling app's run
  * 
- * @returns the projects input object enriched with 'purpose' property for each project
+ * @returns the projects input object enriched with 'repodocDescription' property for each project/app
  * 
  */
 
-function addPurposes(projects:any, repoDir):Promise<any> {
+function addProjectDescriptions(projects:any, params:Params):Promise<any> {
 
     return new Promise((resolve) => {
         const keys:string[] = Object.keys(projects);
-        Promise.all(keys.map((key:string, index:number) => getPurpose(path.join(repoDir, projects[key].root, 'readme.md'))))
-            .then((purposes:string[]) => {
-                keys.map((key, index) => projects[key].purpose = purposes[index]);
-                resolve(projects);
-            })
-    })
-}
-
-/**
- * Creates the html file with reference to all projects within a monorepo.
- * 
- * API of that module.
- * 
- * @param   {any}       projects            an object with enumerable string objects (an object for each project, angular.json structure)
- * @param   {boolean}   copyProjectsDocs    true => function copies app's docs and lead the link to the copy
- * @param   {any}       repoDir             mono repo directory (, where the multi project project resides)
- *                                          false => function does not copy app's docs and lead the to the original app's docs 
- * @param   {string}    outputDir           directory the app's docs will be copied to
- * 
- * @returns the projects input object enriched with 'reference' property for each project
- * 
- * throws an error if 
- * 
- * - an error arises during creation process
- * 
- */
-const fetchProjectsDocs = function (projects:any, copyProjectsDocs:boolean, projectsDocsDir:string, repoDir:string, outputDir:string):Promise<any> {
-
-    return new Promise((resolve) => {
-        const keys:string[] = Object.keys(projects);
-        Promise.all(keys.map((key:string) => fetchProjectDocs(key, projects[key], copyProjectsDocs, projectsDocsDir, repoDir, outputDir)))
-            .then((references:string[]) => {
-                keys.map((key, index) => projects[key].reference = references[index]);
+        Promise.all(keys.map((key:string, index:number) => getProjectDescription(projects[key], params)))
+            .then((repodocDescriptions:string[]) => {
+                keys.map((key, index) => projects[key].repodocDescription = repodocDescriptions[index]);
                 resolve(projects);
             })
     })
@@ -237,21 +213,21 @@ const fetchProjectsDocs = function (projects:any, copyProjectsDocs:boolean, proj
  * throws no errors 
  * 
  */
-function fetchProjectDocs (projectName, project:any, copyProjectsDocs, projectsDocsDir:string, repoDir:string, outputDir:string):Promise<string> {
+function fetchProjectDocs (projectName:string, project:any, params:Params):Promise<string> {
     return new Promise<string>(async (resolve) => {
-        const inputDir = path.join(repoDir, project.root, projectsDocsDir);
+        const inputDir = path.join(String(params.repoDir), project.root, String(params.projectsDocsDir));
         if (!fu.dirExists(inputDir)){
             console.warn(`${inputDir} does not exits`)
             resolve(projectName)
             return
         }
-        if (copyProjectsDocs){
-            fse.copy(inputDir, path.join(outputDir, projectName, projectsDocsDir), function (error) {
+        if (params.copyProjectsDocs){
+            fse.copy(inputDir, path.join(String(params.outputDir), projectName, String(params.projectsDocsDir)), function (error) {
                 if (error){
-                    console.warn(`cannot copy ${inputDir} to ${path.join(outputDir, projectName)} due to ${error}`)
+                    console.warn(`cannot copy ${inputDir} to ${path.join(String(params.outputDir), projectName)} due to ${error}`)
                     resolve(projectName)
                 }else{
-                    resolve('<a href="' + path.join(projectName, projectsDocsDir, "index.html") + '">' + projectName + '</a>')
+                    resolve('<a href="' + path.join(projectName, String(params.projectsDocsDir), "index.html") + '">' + projectName + '</a>')
                 }
             });            
         }else{
@@ -260,16 +236,28 @@ function fetchProjectDocs (projectName, project:any, copyProjectsDocs, projectsD
     })
 }
 
+function fetchProjectsDocs(projects:any, params:Params):Promise<any> {
+
+    return new Promise((resolve) => {
+        const keys:string[] = Object.keys(projects);
+        Promise.all(keys.map((key:string) => fetchProjectDocs(key, projects[key], params)))
+            .then((repodocReferences:string[]) => {
+                keys.map((key, index) => projects[key].repodocReference = repodocReferences[index]);
+                resolve(projects);
+            })
+    })
+}
+
 /**
  * Compiles the html template
  * 
- * @param {any} template    compile function
- * @param {any} projects    projects objects
+ * @param {any}     template    compile function
+ * @param {any}     projects    projects objects
  * 
- * @returns {any} object    the input object enriched with 'purpose' property for each project
+ * @returns {string} html string
  * 
  */
-function getHtmlString(template:any, projects:any):Promise<string>{
+function createHtmlString(template:any, projects:any):Promise<string>{
     return new Promise<string>((resolve) => resolve(template({project:projects})))
 }
 
@@ -287,7 +275,7 @@ function getHtmlString(template:any, projects:any):Promise<string>{
  * - file cannot be written.
  * 
  */
-function writeHtmlFile(htmlString:string, outputDir:string, outputFile):Promise<string>{
+function writeHtmlFile(htmlString:string, outputDir:string, outputFile:string):Promise<string>{
     return new Promise<string>((resolve, reject) => {
         fse.writeFile(path.join(outputDir, outputFile), htmlString, (error:any) => {
         if (error) {

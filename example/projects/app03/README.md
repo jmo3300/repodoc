@@ -1,6 +1,6 @@
 # Angular - multi projects - app 03
 
-## Project Purpose
+## Overview
 
 Third application in in example monorepo.
 

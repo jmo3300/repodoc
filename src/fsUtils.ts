@@ -1,3 +1,9 @@
+/**
+ * This is the doc comment for fsUtils.ts
+ * @packageDocumentation
+ */
+
+
 import fs from 'fs';
 
 import validFilename from 'valid-filename';

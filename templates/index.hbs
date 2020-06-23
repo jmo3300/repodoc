@@ -3,7 +3,7 @@
     <body>
         <ul>
             {{#each project}}
-                <li>{{@key}}, reference: {{{this.reference}}}, projectType: {{this.projectType}}, purpose: {{ this.purpose }}, root: {{this.root}}, sourceRoot: {{this.sourceRoot}}</li>
+                <li>{{@key}}, reference: {{{this.repodocReference}}}, projectType: {{this.projectType}}, description: {{ this.repodocDescription }}, root: {{this.root}}, sourceRoot: {{this.sourceRoot}}</li>
             {{/each}}
 
         </ul>

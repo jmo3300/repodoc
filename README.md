@@ -7,6 +7,7 @@ Assembles docs of all apps.
 ## Features
 
 Repodoc
+
 - finds the apps of a monorepo and their details within the angular.json of monorepo
 - extracts the text of the chapter "Project Purpose" of the readme.md of each app
 - copies the app's docs (if desired)
@@ -50,24 +51,12 @@ Start repodoc just by entering
 Commit all parameters without any change.
 
 Repodoc will show following messages:
-         ____                               _
-        |  _ \    ___   _ __     ___     __| |   ___     ___
-        | |_) |  / _ \ | '_ \   / _ \   / _` |  / _ \   / __|
-        |  _ <  |  __/ | |_) | | (_) | | (_| | | (_) | | (__
-        |_| \_\  \___| | .__/   \___/   \__,_|  \___/   \___|
-                        |_|
-        ? Do you want to copy projects docs?: Yes
-        ? Enter your repository directory: example
-        ? Enter your projects file: angular.json
-        ? Enter the standard docs directory of projects: compodoc
-        ? Enter your templates directory: templates
-        ? Enter your template file: index.hbs
-        ? Enter your output directory: repodoc
-        ? Enter your output file: index.html
 
-        example\projects\app02\compodoc does not exits
-        html file saved to repodoc\index.html
+    using default parameters due to cannot read file repodoc.json due to ENOENT: no such file or directory, open '<working directory>\repodoc\repodoc.json'
+    example\projects\app02\compodoc does not exits
+    html file saved to repodoc\index.html
 
+"using default parameters due to ..." appears the first time Repodoc runs. The first run creates the config file. So, further runs finds it.
 "example\projects\app02\compodoc does not exits" informs about the missing docs of app02.
 
 The index.html contains a list of the three apps with 

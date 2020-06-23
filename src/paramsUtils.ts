@@ -1,4 +1,9 @@
-import fs from 'fs';
+/**
+ * This is the doc comment for paramUtils.ts
+ * @packageDocumentation
+ */
+
+ import fs from 'fs';
 import path from 'path';
 
 import chalk from 'chalk';
@@ -9,18 +14,28 @@ import inquirer from 'inquirer';
 
 import * as fsu from './fsUtils';
 
+/**
+ * This is the doc comment for interface Params
+ */
 export interface Params {
-  configFile?: string
+/**
+ * This is the doc comment for property configfile
+ */
+configFile?: string
   copyProjectsDocs: boolean
   repoDir?: string // path to mono repo
   projectsFile?: string // path to the file which contains the JSON object 'projects' (default angular.json)
   projectsDocsDir?: string // path to app's docs directory (default compodoc)
+  projectsDescriptionTitle?: string // title of the chapter the brief description of the apps will be extracted from
   templatesDir?: string // path to template file(s) (default template)
   templateFile?: string // template file name for creating outfile (default index.hbs)
   outputDir?: string // path to output directory for summarized documentation (default repodoc)
   outputFile?: string // path to landing page of summarized documentation to be created (default index.html)
 }
 
+/**
+ * This is the doc comment for interface Args
+ */
 export interface Args extends Params {
   [x: string]: unknown
   configFile: string
@@ -32,6 +47,7 @@ export const paramsDefault: Params = <Params>{
   repoDir: path.join('.', 'example'),
   projectsFile: "angular.json",
   projectsDocsDir: "compodoc",
+  projectsDescriptionTitle: "Overview",
   templatesDir: path.join('.', 'templates'),
   templateFile: "index.hbs",
   outputDir: path.join('.', 'repodoc'),
@@ -73,6 +89,7 @@ export const updateParamsWithArgs = function (params: Params): Promise<Params> {
       repoDir: { type: 'string', default: params.repoDir },
       projectsFile: { type: 'string', default: params.projectsFile },
       projectsDocsDir: { type: 'string', default: params.projectsDocsDir },
+      projectsDescriptionTitle: { type: 'string', default: params.projectsDescriptionTitle },
       templatesDir: { type: 'string', default: params.templatesDir },
       templateFile: { type: 'string', default: params.templateFile },
       outputDir: { type: 'string', default: params.outputDir },
@@ -87,7 +104,7 @@ export const updateParamsWithArgs = function (params: Params): Promise<Params> {
   })
 }
 
-export const writeParams = function (params: Params, configFile: string): Promise<Params> {
+export const writeParamsToFile = function (params: Params, configFile: string): Promise<Params> {
 
   return new Promise<Params>((resolve) => {
     fs.writeFile(configFile, JSON.stringify(params), (error: any) => {
@@ -165,6 +182,15 @@ export async function askParams(params: Params, askParams: boolean) {
     }
   })
   params.projectsDocsDir = projectsDocsDir['projects docs directory'];
+
+  const projectsDescpriptionTitle = await inquirer.prompt({
+    name: 'description title',
+    type: 'input',
+    default: params.projectsDescriptionTitle,
+    message: 'Enter the title of chapter with app description:',
+  })
+  params.projectsDescriptionTitle = projectsDocsDir['description title'];
+
 
   const templatesDir = await inquirer.prompt({
     name: 'templates directory',
