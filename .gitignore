@@ -3,5 +3,3 @@ node_modules
 example/node_modules
 repodoc
 repodoc.json
-typedoc
-compodoc
