@@ -1,6 +1,6 @@
 {
   "name": "repodoc",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "creates a overview site for a monorepo",
   "main": "repodoc.js",
   "bin": {
