@@ -1,5 +1,11 @@
 /**
- * This is the doc comment for paramUtils.ts
+ * Manage the configuration of Repodoc. Provides
+ * 
+ * - the **interfaces** for controlling the creation process
+ *   - **Params** consists of all parameters the doc module (creation process) needs
+ *   - **Args** extends **Params** with some other Parameters needed for run control
+ * - several function for managing/persisting/validating/using the configuration parameters
+ * 
  * @packageDocumentation
  */
 
@@ -15,26 +21,57 @@ import inquirer from 'inquirer';
 import * as fsu from './fsUtils';
 
 /**
- * This is the doc comment for interface Params
+ * Consists of all Parameters needed for documentation creation process
  */
 export interface Params {
 /**
- * This is the doc comment for property configfile
+ * the config file Repodoc should use (default repodoc.json)
  */
-configFile?: string
+  configFile?: string
+/**
+ * Switch for How to use/reference the apps' docs (default true)
+ * 
+ * - true: Repodoc copies the apps' docs and links to the copy
+ * - false: Repodoc doesn not copy the apps' docs and links to the original apps' docs
+ * 
+ */
   copyProjectsDocs: boolean
-  repoDir?: string // path to mono repo
-  projectsFile?: string // path to the file which contains the JSON object 'projects' (default angular.json)
-  projectsDocsDir?: string // path to app's docs directory (default compodoc)
-  projectsDescriptionTitle?: string // title of the chapter the brief description of the apps will be extracted from
-  templatesDir?: string // path to template file(s) (default template)
-  templateFile?: string // template file name for creating outfile (default index.hbs)
-  outputDir?: string // path to output directory for summarized documentation (default repodoc)
-  outputFile?: string // path to landing page of summarized documentation to be created (default index.html)
+/**
+ * path to mono repo (default: example)
+ */
+  repoDir?: string
+/**
+ * path to the file which contains the JSON object 'projects' (default angular.json)
+ */
+  projectsFile?: string 
+/**
+ * path to app's docs directory (default compodoc)
+ */
+  projectsDocsDir?: string
+/**
+ * title of the chapter the brief description of the apps will be extracted from
+ */
+  projectsDescriptionTitle?: string 
+/**
+ * path to template file(s) (default template)
+ */
+  templatesDir?: string
+ /**
+ * template file name for creating outfile (default index.hbs)
+ */
+  templateFile?: string
+/**
+ * path to output directory for summarized documentation (default repodoc)
+ */
+  outputDir?: string 
+/**
+ * path to landing page of summarized documentation to be created (default index.html)
+ */
+  outputFile?: string 
 }
 
 /**
- * This is the doc comment for interface Args
+ * Consists of all Parameters needed for run control (including **Params** for documentation creation process)
  */
 export interface Args extends Params {
   [x: string]: unknown
@@ -83,7 +120,7 @@ export const updateParamsWithArgs = function (params: Params): Promise<Params> {
 
   return new Promise<Params>((resolve) => {
     const args: Args = yargs.options({
-      configFile: { type: 'string', default: "yapp.json", alias: "c" },
+      configFile: { type: 'string', default: "repodoc.json", alias: "c" },
       askParams: { type: 'boolean', default: true, alias: "a" },
       copyProjectsDocs: { type: 'boolean', default: true },
       repoDir: { type: 'string', default: params.repoDir },

@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * This is the doc comment for repodoc.ts
+ * CLI / processing controller
  * @packageDocumentation
  */
 
-import * as pu from './paramsUtils';
-import * as du from './docUtils';
+import * as pu from './config';
+import * as du from './doc';
 import yargs from 'yargs';
 
 const main = function():void {

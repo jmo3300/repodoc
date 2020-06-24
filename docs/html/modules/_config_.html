@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;paramsUtils&quot; | repodoc</title>
+	<title>&quot;config&quot; | repodoc</title>
 	<meta name="description" content="Documentation for repodoc">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_paramsutils_.html">&quot;paramsUtils&quot;</a>
+					<a href="_config_.html">&quot;config&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;paramsUtils&quot;</h1>
+			<h1>Module &quot;config&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -69,8 +69,16 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>This is the doc comment for paramUtils.ts</p>
+						<p>Manage the configuration of Repodoc. Provides</p>
 					</div>
+					<ul>
+						<li>the <strong>interfaces</strong> for controlling the creation process<ul>
+								<li><strong>Params</strong> consists of all parameters the doc module (creation process) needs</li>
+								<li><strong>Args</strong> extends <strong>Params</strong> with some other Parameters needed for run control</li>
+							</ul>
+						</li>
+						<li>several function for managing/persisting/using the configuration parameters</li>
+					</ul>
 				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -80,24 +88,24 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_paramsutils_.args.html" class="tsd-kind-icon">Args</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_paramsutils_.params.html" class="tsd-kind-icon">Params</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_config_.args.html" class="tsd-kind-icon">Args</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_config_.params.html" class="tsd-kind-icon">Params</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_paramsutils_.html#paramsdefault" class="tsd-kind-icon">params<wbr>Default</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_config_.html#paramsdefault" class="tsd-kind-icon">params<wbr>Default</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_paramsutils_.html#askparams" class="tsd-kind-icon">ask<wbr>Params</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_paramsutils_.html#initparams" class="tsd-kind-icon">init<wbr>Params</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_paramsutils_.html#updateparamswithargs" class="tsd-kind-icon">update<wbr>Params<wbr>With<wbr>Args</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_paramsutils_.html#validateparams" class="tsd-kind-icon">validate<wbr>Params</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_paramsutils_.html#writeparams" class="tsd-kind-icon">write<wbr>Params</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_config_.html#askparams" class="tsd-kind-icon">ask<wbr>Params</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_config_.html#initparams" class="tsd-kind-icon">init<wbr>Params</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_config_.html#updateparamswithargs" class="tsd-kind-icon">update<wbr>Params<wbr>With<wbr>Args</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_config_.html#validateparams" class="tsd-kind-icon">validate<wbr>Params</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_config_.html#writeparamstofile" class="tsd-kind-icon">write<wbr>Params<wbr>ToFile</a></li>
 							</ul>
 						</section>
 					</div>
@@ -108,10 +116,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
 					<a name="paramsdefault" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> params<wbr>Default</h3>
-					<div class="tsd-signature tsd-kind-icon">params<wbr>Default<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol"> = &lt;Params&gt;{copyProjectsDocs: true,repoDir: path.join(&#x27;.&#x27;, &#x27;example&#x27;),projectsFile: &quot;angular.json&quot;,projectsDocsDir: &quot;compodoc&quot;,templatesDir: path.join(&#x27;.&#x27;, &#x27;templates&#x27;),templateFile: &quot;index.hbs&quot;,outputDir: path.join(&#x27;.&#x27;, &#x27;repodoc&#x27;),outputFile: &quot;index.html&quot;}</span></div>
+					<div class="tsd-signature tsd-kind-icon">params<wbr>Default<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol"> = &lt;Params&gt;{copyProjectsDocs: true,repoDir: path.join(&#x27;.&#x27;, &#x27;example&#x27;),projectsFile: &quot;angular.json&quot;,projectsDocsDir: &quot;compodoc&quot;,projectsDescriptionTitle: &quot;Overview&quot;,templatesDir: path.join(&#x27;.&#x27;, &#x27;templates&#x27;),templateFile: &quot;index.hbs&quot;,outputDir: path.join(&#x27;.&#x27;, &#x27;repodoc&#x27;),outputFile: &quot;index.html&quot;}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in paramsUtils.ts:44</li>
+							<li>Defined in config.ts:82</li>
 						</ul>
 					</aside>
 				</section>
@@ -122,25 +130,25 @@
 					<a name="askparams" class="tsd-anchor"></a>
 					<h3>ask<wbr>Params</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">ask<wbr>Params<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a>, askParams<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">ask<wbr>Params<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a>, askParams<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paramsUtils.ts:116</li>
+									<li>Defined in config.ts:156</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>params: <a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a></h5>
+									<h5>params: <a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a></h5>
 								</li>
 								<li>
 									<h5>askParams: <span class="tsd-signature-type">boolean</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -148,13 +156,13 @@
 					<a name="initparams" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> init<wbr>Params</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">init<wbr>Params<span class="tsd-signature-symbol">(</span>configFile<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">init<wbr>Params<span class="tsd-signature-symbol">(</span>configFile<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paramsUtils.ts:56</li>
+									<li>Defined in config.ts:95</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -163,7 +171,7 @@
 									<h5>configFile: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -171,22 +179,22 @@
 					<a name="updateparamswithargs" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> update<wbr>Params<wbr>With<wbr>Args</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">update<wbr>Params<wbr>With<wbr>Args<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Params<wbr>With<wbr>Args<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paramsUtils.ts:80</li>
+									<li>Defined in config.ts:119</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>params: <a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a></h5>
+									<h5>params: <a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -194,48 +202,48 @@
 					<a name="validateparams" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> validate<wbr>Params</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">validate<wbr>Params<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">validate<wbr>Params<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paramsUtils.ts:246</li>
+									<li>Defined in config.ts:295</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>params: <a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a></h5>
+									<h5>params: <a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="writeparams" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> write<wbr>Params</h3>
+					<a name="writeparamstofile" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> write<wbr>Params<wbr>ToFile</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">write<wbr>Params<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a>, configFile<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">write<wbr>Params<wbr>ToFile<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a>, configFile<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paramsUtils.ts:104</li>
+									<li>Defined in config.ts:144</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>params: <a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a></h5>
+									<h5>params: <a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a></h5>
 								</li>
 								<li>
 									<h5>configFile: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_paramsutils_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -247,14 +255,14 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class="current tsd-kind-module">
+						<a href="_config_.html">&quot;config&quot;</a>
+					</li>
 					<li class=" tsd-kind-module">
-						<a href="_docutils_.html">&quot;doc<wbr>Utils&quot;</a>
+						<a href="_doc_.html">&quot;doc&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_fsutils_.html">&quot;fs<wbr>Utils&quot;</a>
-					</li>
-					<li class="current tsd-kind-module">
-						<a href="_paramsutils_.html">&quot;params<wbr>Utils&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_repodoc_.html">&quot;repodoc&quot;</a>
@@ -264,28 +272,28 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_paramsutils_.args.html" class="tsd-kind-icon">Args</a>
+						<a href="../interfaces/_config_.args.html" class="tsd-kind-icon">Args</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_paramsutils_.params.html" class="tsd-kind-icon">Params</a>
+						<a href="../interfaces/_config_.params.html" class="tsd-kind-icon">Params</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="_paramsutils_.html#paramsdefault" class="tsd-kind-icon">params<wbr>Default</a>
+						<a href="_config_.html#paramsdefault" class="tsd-kind-icon">params<wbr>Default</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_paramsutils_.html#askparams" class="tsd-kind-icon">ask<wbr>Params</a>
+						<a href="_config_.html#askparams" class="tsd-kind-icon">ask<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_paramsutils_.html#initparams" class="tsd-kind-icon">init<wbr>Params</a>
+						<a href="_config_.html#initparams" class="tsd-kind-icon">init<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_paramsutils_.html#updateparamswithargs" class="tsd-kind-icon">update<wbr>Params<wbr>With<wbr>Args</a>
+						<a href="_config_.html#updateparamswithargs" class="tsd-kind-icon">update<wbr>Params<wbr>With<wbr>Args</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_paramsutils_.html#validateparams" class="tsd-kind-icon">validate<wbr>Params</a>
+						<a href="_config_.html#validateparams" class="tsd-kind-icon">validate<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_paramsutils_.html#writeparams" class="tsd-kind-icon">write<wbr>Params</a>
+						<a href="_config_.html#writeparamstofile" class="tsd-kind-icon">write<wbr>Params<wbr>ToFile</a>
 					</li>
 				</ul>
 			</nav>

@@ -1,5 +1,8 @@
 /**
- * This is the doc comment for docUtils.ts
+ * Creates the Documentation
+ * 
+ * createDoc(params:Params) is the (only) entry point of this module.
+ * 
  * @packageDocumentation
  */
 
@@ -8,12 +11,12 @@ import path from 'path';
 
 import handlebars from 'handlebars';
 
-import { Params } from './paramsUtils';
-import * as fu from './fsUtils';
+import { Params } from './config';
+import * as fsu from './fsUtils';
 
 
 /**
- * Creates the Documentation, in detail  
+ * Creates the Documentation, in detail:
  * 
  * - creates html file with an entry for each app including 
  *   - a link to app's documentation
@@ -22,7 +25,7 @@ import * as fu from './fsUtils';
 
  * - copies the documentation of all apps (if desired)
  * 
- * API/Entry point of that module.
+ * API/Entry point of that main Repodoc module.
  * 
  * @param {Params}  params  Parameter which controls the creation process   
  * 
@@ -162,7 +165,7 @@ function getProjectDescription (project:any,params:Params):Promise<string> {
                     resolve(extractProjectDescription(data.toString(),params))
                 }catch(error){
                     console.warn(`no description due to ${error} in file ${inputFile}`)
-                    resolve(`no description due to ${error}`)
+                    resolve(`no description`)
                 }
             }
         })
@@ -216,7 +219,7 @@ function addProjectDescriptions(projects:any, params:Params):Promise<any> {
 function fetchProjectDocs (projectName:string, project:any, params:Params):Promise<string> {
     return new Promise<string>(async (resolve) => {
         const inputDir = path.join(String(params.repoDir), project.root, String(params.projectsDocsDir));
-        if (!fu.dirExists(inputDir)){
+        if (!fsu.dirExists(inputDir)){
             console.warn(`${inputDir} does not exits`)
             resolve(projectName)
             return

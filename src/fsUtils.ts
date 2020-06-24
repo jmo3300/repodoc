@@ -1,16 +1,11 @@
 /**
- * This is the doc comment for fsUtils.ts
+ * Some functions for ease file handling in the context of Repodoc
  * @packageDocumentation
  */
 
 
 import fs from 'fs';
-
 import validFilename from 'valid-filename';
-
-export function getCWD():string {
-  return process.cwd();
-}
 
 export function dirExists(filePath:string):boolean {
   return fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()

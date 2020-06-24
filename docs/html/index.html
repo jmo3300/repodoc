@@ -67,17 +67,21 @@
 				<a href="#repodoc" id="repodoc" style="color: inherit; text-decoration: none;">
 					<h1>Repodoc</h1>
 				</a>
-				<p>Repodoc creates an app index for a (angular) monorepo/multiapp project. </p>
-				<p>Assembles docs of all apps. </p>
+				<p>Repodoc creates an app index in html for a (n angular) monorepo/multiapp project with </p>
+				<ul>
+					<li>link to apps&#39; documentation</li>
+					<li>brief description of the apps  </li>
+				</ul>
+				<p>Assembles docs of all apps (, if desired).</p>
 				<a href="#features" id="features" style="color: inherit; text-decoration: none;">
 					<h2>Features</h2>
 				</a>
 				<p>Repodoc</p>
 				<ul>
 					<li>finds the apps of a monorepo and their details within the angular.json of monorepo</li>
-					<li>extracts the text of the chapter &quot;Project Purpose&quot; of the readme.md of each app</li>
+					<li>extracts the text of the chapter &quot;Overview&quot; (or another chapter) of the readme.md of each app</li>
 					<li>copies the app&#39;s docs (if desired)</li>
-					<li>creates an html file based on a handlebar template with a list of all apps containing<ul>
+					<li>creates an html file based on a handlebars template with a list of all apps containing<ul>
 							<li>a link to app&#39;s docs (either copied docs or original docs)</li>
 							<li>app&#39;s brief description (based its readme.md, there the text of the chapter &#39;Project Purpose&#39;)</li>
 						</ul>
@@ -95,9 +99,9 @@
 				</a>
 				<p>Repodoc works on a repository with a structure of standard angular multi projects repository.
 				For building the app index Repodoc uses a template file. </p>
-				<p>So, for getting Repodoc to run we need at least </p>
+				<p>So, for getting Repodoc to run you need at least </p>
 				<ul>
-					<li><p>a repository directory with multi projects and </p>
+					<li><p>a repository directory with multi projects (a projects file like angular.json and a directory &#39;projects&#39; containing the projects) and </p>
 					</li>
 					<li><p>a handlebars template file</p>
 					</li>
@@ -114,12 +118,15 @@
 					<li><p>The directory &#39;template&#39; contains a template file &quot;index.hbs&quot;</p>
 					</li>
 				</ul>
-				<p>For the first trial copy theses two directories into the directory you will start Repodoc in.</p>
+				<p>For the first trial copy theses two directories into the directory you will start Repodoc from.</p>
 				<p>Start repodoc just by entering</p>
 				<pre><code><span class="hljs-attribute">repodoc</span></code></pre><p>Commit all parameters without any change.</p>
 				<p>Repodoc will show following messages:</p>
-				<pre><code>example<span class="hljs-tag">\<span class="hljs-name">projects</span></span><span class="hljs-tag">\<span class="hljs-name">app</span></span>02<span class="hljs-tag">\<span class="hljs-name">compodoc</span></span> does not exits
-html file saved to repodoc<span class="hljs-tag">\<span class="hljs-name">index</span></span>.html</code></pre><p><img src="./docs/images/rpd-quick-start.png" alt="Quick Start - console messages"></p>
+				<pre><code>using<span class="hljs-built_in"> default </span>parameters due <span class="hljs-keyword">to</span> cannot read file repodoc.json due <span class="hljs-keyword">to</span> ENOENT: <span class="hljs-literal">no</span> such file <span class="hljs-keyword">or</span> directory, open <span class="hljs-string">&#x27;&lt;working directory&gt;\repodoc\repodoc.json&#x27;</span>
+example\projects\app02\compodoc does <span class="hljs-keyword">not</span> exits
+html file saved <span class="hljs-keyword">to</span> repodoc\index.html</code></pre><p>&quot;using default parameters due to ...&quot; appears the first time Repodoc runs. 
+					The first run creates the config file.
+				So, further runs find the config file and the warning will not appear anymore.</p>
 				<p>&quot;example\projects\app02\compodoc does not exits&quot; informs about the missing docs of app02.</p>
 				<p>The index.html contains a list of the three apps with </p>
 				<ul>
@@ -130,22 +137,25 @@ html file saved to repodoc<span class="hljs-tag">\<span class="hljs-name">index<
 				<a href="#options" id="options" style="color: inherit; text-decoration: none;">
 					<h3>Options</h3>
 				</a>
-				<p>Repodoc uses the config file repodoc.json.
-				repodoc.json contains the parameters of Repodoc&#39;s last run.</p>
-				<p>By default Repodoc provides the possibility to change the parameters (--askParams=true is default).</p>
-				<p>With option --askParams=false you can skip the dialog part of the program start.</p>
-				<p>By default Repocod copies the doc&#39;s directories of the apps to the output directory where you find the generates index.html. (--copyProjectsDocs=true is default) </p>
-				<p>With option --copyProjectsDocs=false you can ommit the copying.
-				Then, the apps&#39; entries points to the original apps&#39; docs.</p>
-				<p>all directory and file parameters can be set as options. In detail:</p>
+				<p>By default Repodoc uses a config file named repodoc.json.
+					The config file contains the parameters of Repodoc&#39;s last run.
+					You can alter the name of the config file by starting Repodoc with option
+				&quot;<strong>--configFile</strong>=&lt;config file name&gt; resp. <strong>-c</strong> &lt;config file name&gt; .</p>
+				<p>By default Repodoc provides the possibility to change the parameters (--<strong>askParams</strong>=true is default).
+				With option --<strong>askParams</strong>=false you can skip the dialog part of the program start. Then, Repodoc uses either the config file values (if config file is available) or the default values.</p>
+				<p>By default Repodoc copies the doc&#39;s directories of the apps to the output directory where you find the generated index.html. (--<strong>copyProjectsDocs</strong>=true is default)
+					With option --<strong>copyProjectsDocs</strong>=false you can omit the copying.
+				Then, the apps&#39; entries gonna point to the genuine docs of the apps.</p>
+				<p>All directory, file and other parameters can be set as options. In detail:</p>
 				<ul>
-					<li>repoDir              path to mono repo, needs to be an existant directory</li>
-					<li>projectsFile         name of the file which contains the JSON object &#39;projects&#39; (see structure of angular.json of a mono repo) (default angular.json)</li>
-					<li>projectsDocsDir      path to app&#39;s docs directory, needs to be an existant directory (default compodoc)</li>
-					<li>templatesDir         template file(s) directory, needs to be an existant directory (default template)</li>
-					<li>templateFile         template file name for creating output file, needs to be an existant file (default index.hbs)</li>
-					<li>outputDir            path to output directory for summarized documentation, needs to be a valid directory name, <pre><code>                 will be created <span class="hljs-keyword">if</span> not <span class="hljs-keyword">exist</span> (<span class="hljs-keyword">default</span> repodoc)</code></pre></li>
-					<li>outputFile           name of the landing page file of summarized documentation, needs to be a valid file name (default index.html)</li>
+					<li><strong>repoDir</strong>: path to mono repo, needs to be an existant directory (<strong>default: example</strong>)</li>
+					<li><strong>projectsFile</strong>: name of the file which contains the JSON object &#39;projects&#39; (see structure of angular.json of a mono repo) (<strong>default: angular.json</strong>)</li>
+					<li><strong>projectsDocsDir</strong>: path to app&#39;s docs directory, needs to be an existant directory (<strong>default: compodoc</strong>)</li>
+					<li><strong>projectsDescriptionTitle</strong>: title of the chapter the brief description of the apps will be extracted from (<strong>default: Overview</strong>)</li>
+					<li><strong>templatesDir</strong>: template file(s) directory, needs to be an existant directory (<strong>default: templates</strong>)</li>
+					<li><strong>templateFile</strong>: template file name for creating output file, needs to be an existant file (<strong>default: index.hbs</strong>)</li>
+					<li><strong>outputDir</strong>: path to output directory for summarized documentation, needs to be a valid directory name, will be created if not exist (<strong>default: repodoc</strong>)</li>
+					<li><strong>outputFile</strong>: name of the landing page file of summarized documentation, needs to be a valid file name (<strong>default: index.html</strong>)</li>
 				</ul>
 			</div>
 		</div>
@@ -156,13 +166,13 @@ html file saved to repodoc<span class="hljs-tag">\<span class="hljs-name">index<
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_docutils_.html">&quot;doc<wbr>Utils&quot;</a>
+						<a href="modules/_config_.html">&quot;config&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_doc_.html">&quot;doc&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/_fsutils_.html">&quot;fs<wbr>Utils&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_paramsutils_.html">&quot;params<wbr>Utils&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/_repodoc_.html">&quot;repodoc&quot;</a>
