@@ -21,7 +21,7 @@ Repodoc
 
     npm install repodoc -g
 
-## Usage
+## Usage / CLI
 
 ### Prerequists
 
@@ -94,3 +94,16 @@ All directory, file and other parameters can be set as options. In detail:
 - **templateFile**: template file name for creating output file, needs to be an existant file (**default: index.hbs**)
 - **outputDir**: path to output directory for summarized documentation, needs to be a valid directory name, will be created if not exist (**default: repodoc**)
 - **outputFile**: name of the landing page file of summarized documentation, needs to be a valid file name (**default: index.html**)
+
+## API
+
+Module **doc** does the work.
+Module **config** handles the parameters **doc** needs.
+
+For further informations refer to Repodoc's documentation located at **docs/html** (static html).
+
+## References
+
+The documentation of the sample apps is generated with [compodoc](https://compodoc.app/). The great documenation generator for Angular projects which inspired ne to implement Repodoc. 
+
+The Repodoc's documentation is generated with [TYPEDOC](https://typedoc.org/), a super got-to-the-point tool.

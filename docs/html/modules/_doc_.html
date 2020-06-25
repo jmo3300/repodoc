@@ -102,24 +102,24 @@
 					<a name="addprojectdescriptions" class="tsd-anchor"></a>
 					<h3>add<wbr>Project<wbr>Descriptions</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Project<wbr>Descriptions<span class="tsd-signature-symbol">(</span>projects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Project<wbr>Descriptions<span class="tsd-signature-symbol">(</span>projects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span>, params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:185</li>
+									<li>Defined in doc.ts:187</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Adds a property &#39;repodocDescription&#39; to all project objects</p>
+									<p>Enriches each project of the &#39;projects&#39; object with the property &#39;repodocDescription&#39;</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>projects: <span class="tsd-signature-type">any</span></h5>
+									<h5>projects: <span class="tsd-signature-type">Object</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>an object with enumerable string objects (an object for each project, angular.json structure)</p>
 									</div>
@@ -133,6 +133,7 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>the projects input object enriched with &#39;repodocDescription&#39; property for each project/app</p>
+							<p>throws no error(s)</p>
 						</li>
 					</ul>
 				</section>
@@ -194,7 +195,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:263</li>
+									<li>Defined in doc.ts:284</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -232,7 +233,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:124</li>
+									<li>Defined in doc.ts:125</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -271,18 +272,23 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:219</li>
+									<li>Defined in doc.ts:252</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Copies app&#39;s doc, if desired (copyProjectsDocs=true)</p>
+									<p>Copies apps&#39; docs, if desired (copyProjectsDocs=true is default)</p>
 								</div>
-								<p>Prepares the link to app&#39;s docs. The link will</p>
+								<p>Prepares the link to the apps&#39; docs. The link will</p>
 								<ul>
-									<li>lead to app&#39;s docs&#39; copy, if a copy is desired/exists</li>
-									<li>lead to original app&#39;s docs</li>
-									<li>not be prepared, docs of an app do not exist</li>
+									<li><p>leads either</p>
+										<ul>
+											<li>to apps&#39; docs copy, if a copy is desired/exists or</li>
+											<li>to the apps&#39; origine docs</li>
+										</ul>
+									</li>
+									<li><p>not be prepared, if docs of an app do not exist</p>
+									</li>
 								</ul>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -290,14 +296,14 @@
 								<li>
 									<h5>projectName: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Name of the project, is part of destination path of an potiéntial copy</p>
+										<p>Name of the project, is part of destination path of a potential copy</p>
 									</div>
 								</li>
 								<li>
 									<h5>project: <span class="tsd-signature-type">any</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Object with all project details, partiually project&#39;s root directory
-										with is part of destination path of an potiéntial copy</p>
+										<p>Object with all project details (see structure of angular.json)
+										particually project&#39;s root directory which is also part of destination path of a potential copy</p>
 									</div>
 								</li>
 								<li>
@@ -305,8 +311,8 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>reference to app&#39;s docs (e.g. <a href="path-to-projects-docs/index.html">projectName</a>)
-							projectName, if there are no docs for an app or the docs cannot be copied</p>
+							<p>reference to apps&#39; docs (e.g. <a href="path-to-apps-docs/index.html">projectName</a>) or
+							only projectName, if there are no docs for an app or the docs cannot be copied</p>
 							<p>throws no errors</p>
 						</li>
 					</ul>
@@ -321,19 +327,34 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:242</li>
+									<li>Defined in doc.ts:215</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Enriches each project of the &#39;projects&#39; object with the property &#39;repodocReference&#39;</p>
+								</div>
+								<p>Calls for each project/app <strong>fetchProjectDocs (projectName, project, params)</strong> which</p>
+								<ul>
+									<li>prepares the reference</li>
+									<li>handles the copying of apps&#39; docs</li>
+								</ul>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>projects: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Object with all projects (see structure of angular.json)</p>
+									</div>
 								</li>
 								<li>
 									<h5>params: <a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>the input object &#39;projects&#39; enriched with with property &#39;repodocReference&#39; for each project/app</p>
+							<p>throws no errors</p>
 						</li>
 					</ul>
 				</section>
@@ -347,7 +368,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:156</li>
+									<li>Defined in doc.ts:157</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -382,7 +403,7 @@
 					<a name="getprojects" class="tsd-anchor"></a>
 					<h3>get<wbr>Projects</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Projects<span class="tsd-signature-symbol">(</span>repoDir<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, projectsFile<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">JSON</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Projects<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">JSON</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -399,10 +420,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>repoDir: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>projectsFile: <span class="tsd-signature-type">any</span></h5>
+									<h5>params: <a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">JSON</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -420,7 +438,7 @@
 					<a name="gettemplate" class="tsd-anchor"></a>
 					<h3>get<wbr>Template</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Template<span class="tsd-signature-symbol">(</span>templatesDir<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, templateFile<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Template<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -437,10 +455,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>templatesDir: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>templateFile: <span class="tsd-signature-type">string</span></h5>
+									<h5>params: <a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -456,13 +471,13 @@
 					<a name="writehtmlfile" class="tsd-anchor"></a>
 					<h3>write<wbr>Html<wbr>File</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">write<wbr>Html<wbr>File<span class="tsd-signature-symbol">(</span>htmlString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, outputDir<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, outputFile<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">write<wbr>Html<wbr>File<span class="tsd-signature-symbol">(</span>htmlString<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:281</li>
+									<li>Defined in doc.ts:302</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -479,16 +494,7 @@
 									</div>
 								</li>
 								<li>
-									<h5>outputDir: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>directory the output file will be written to</p>
-									</div>
-								</li>
-								<li>
-									<h5>outputFile: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>file the html code will be written to</p>
-									</div>
+									<h5>params: <a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
