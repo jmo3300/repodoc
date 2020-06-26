@@ -32,18 +32,11 @@ Create the src directory approtriately. build directory will be created during c
 
 Install dependencies according article
 
-        npm install chalk clear clui figlet inquirer minimist configstore @octokit/rest @octokit/auth-basic lodash simple-git touch
+        npm install chai mocha ts-node @types/chai @types/mocha --save-dev
 
-Install type for the dependencies
 
-        npm install @types/clear
-        npm install @types/figlet
-        npm install @types/inquirer
 
-Further dependencies
 
-        npm install valid-filename
-        npm install fs-extra
 
 ## Implementation
 

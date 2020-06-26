@@ -29,10 +29,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createDoc = void 0;
 var fs_extra_1 = __importDefault(require("fs-extra"));
 var path_1 = __importDefault(require("path"));
 var handlebars_1 = __importDefault(require("handlebars"));
+var config = __importStar(require("./config"));
 var fsu = __importStar(require("./fsUtils"));
 /**
  * Creates the Documentation, in detail:
@@ -56,22 +56,34 @@ var fsu = __importStar(require("./fsUtils"));
  *
  */
 function createDoc(params) {
-    Promise.all([
-        getTemplate(params),
-        getProjects(params)
-            .then(function (projects) { return addProjectDescriptions(projects, params); })
-            .then(function (projects) { return fetchProjectsDocs(projects, params); })
-    ])
-        .then(function (values) {
-        var template = values[0];
-        var projects = values[1];
-        return createHtmlString(template, projects);
-    })
-        .then(function (htmlString) { return writeHtmlFile(htmlString, params); })
-        .then(console.log)
-        .catch(function (error) { throw error; });
+    return new Promise(function (resolve, reject) {
+        Promise.all([
+            config.validateParams(params),
+            getTemplate(params),
+            getProjects(params)
+                .then(function (projects) { return addProjectDescriptions(projects, params); })
+                .then(function (projects) { return fetchProjectsDocs(projects, params); })
+        ])
+            .then(function (values) {
+            var paramsValidated = values[0];
+            // console.log(paramsValidated)
+            var template = values[1];
+            var projects = values[2];
+            return createHtmlString(template, projects);
+        })
+            .then(function (htmlString) { return writeHtmlFile(htmlString, params); })
+            .then(function (message) {
+            console.log(message);
+            resolve(message);
+        })
+            // .catch(error => { throw error })
+            .catch(function (error) {
+            console.log(error);
+            reject(new Error(error));
+        });
+    });
 }
-exports.createDoc = createDoc;
+exports.default = createDoc;
 /**
  * Reads the hbs template file and compiles it.
  *
@@ -116,13 +128,13 @@ function getProjects(params) {
             try {
                 var projects = JSON.parse(data).projects;
                 if (projects === undefined || Object.keys(projects).length < 1) {
-                    reject(new Error("file " + inputFile + " contains no project(s)\"").message);
+                    reject(new Error("file " + inputFile + " contains no project(s)").message);
                     return;
                 }
                 resolve(projects);
             }
             catch (error) {
-                reject(new Error("file " + path_1.default.join(inputFile) + " contains no valid JSON\"").message);
+                reject(new Error("file " + path_1.default.join(inputFile) + " contains no valid JSON").message);
             }
         });
     });
@@ -265,7 +277,7 @@ function fetchProjectDocs(projectName, project, params) {
     return new Promise(function (resolve) {
         var inputDir = path_1.default.join(String(params.repoDir), project.root, String(params.projectsDocsDir));
         if (!fsu.dirExists(inputDir)) {
-            console.warn(inputDir + " does not exits");
+            console.warn(inputDir + " does not exist");
             resolve(projectName);
             return;
         }

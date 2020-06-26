@@ -295,6 +295,18 @@ function askParams(params, askParams) {
     });
 }
 exports.askParams = askParams;
+/**
+ * Validates all processing controlling parameters
+ *
+ * By the way creates the output directory if not existent.
+ *
+ * @param {Params}  params  Parameter which controls the creation process
+ *
+ * @returns resolves with params if all is fine
+ *
+ * throws Error(s) by reject Error(-List)
+ *
+ */
 exports.validateParams = function (params) {
     return new Promise(function (resolve, reject) {
         var errors = [];
@@ -303,7 +315,7 @@ exports.validateParams = function (params) {
         }
         else {
             if (!fsu.fileExists(path_1.default.join(String(params.repoDir), String(params.projectsFile)))) {
-                errors.push("projects file '" + path_1.default.join(String(params.repoDir), String(params.projectsFile)) + "'does not exists");
+                errors.push("projects file '" + path_1.default.join(String(params.repoDir), String(params.projectsFile)) + "' does not exist");
             }
         }
         if (!fsu.dirExists(String(params.templatesDir))) {
@@ -311,7 +323,7 @@ exports.validateParams = function (params) {
         }
         else {
             if (!fsu.fileExists(path_1.default.join(String(params.templatesDir), String(params.templateFile)))) {
-                errors.push("template file '" + path_1.default.join(String(params.templatesDir), String(params.templateFile)) + "'does not exists");
+                errors.push("template file '" + path_1.default.join(String(params.templatesDir), String(params.templateFile)) + "' does not exist");
             }
         }
         if (!fsu.dirCreate(String(params.outputDir))) {

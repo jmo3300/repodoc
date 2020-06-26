@@ -1,6 +1,16 @@
-<a name="0.0.12"></a>
+<a name="0.0.14"></a>
 
-# [0.0.13](https://github.com/jmo3300/repodoc/compare/0.0.12...0.0.13) (2022-06-??)
+# [0.0.14](https://github.com/jmo3300/repodoc/compare/0.0.13...0.0.14) (2022-06-26)
+
+## Features
+
+- (first) tests established
+
+## Bug fixes
+
+- some minor bugs fixed
+
+# [0.0.13](https://github.com/jmo3300/repodoc/compare/0.0.12...0.0.13) (2022-06-25)
 
 ## Features
 

@@ -292,6 +292,19 @@ export async function askParams(params: Params, askParams: boolean) {
   return params;
 }
 
+/**
+ * Validates all processing controlling parameters 
+ * 
+ * By the way creates the output directory if not existent.
+ * 
+ * @param {Params}  params  Parameter which controls the creation process   
+ * 
+ * @returns resolves with params if all is fine
+ * 
+ * throws Error(s) by reject Error(-List) 
+ * 
+ */
+
 export const validateParams = function (params: Params): Promise<Params> {
 
   return new Promise<Params>((resolve, reject) => {
@@ -302,7 +315,7 @@ export const validateParams = function (params: Params): Promise<Params> {
       errors.push(`repository directory '${String(params.repoDir)}' is not valid`);
     } else {
       if (!fsu.fileExists(path.join(String(params.repoDir), String(params.projectsFile)))) {
-        errors.push(`projects file '${path.join(String(params.repoDir), String(params.projectsFile))}'does not exists`);
+        errors.push(`projects file '${path.join(String(params.repoDir), String(params.projectsFile))}' does not exist`);
       }
     }
 
@@ -310,7 +323,7 @@ export const validateParams = function (params: Params): Promise<Params> {
       errors.push(`templates directory '${String(params.templatesDir)}' is not valid`);
     } else {
       if (!fsu.fileExists(path.join(String(params.templatesDir), String(params.templateFile)))) {
-        errors.push(`template file '${path.join(String(params.templatesDir), String(params.templateFile))}'does not exists`);
+        errors.push(`template file '${path.join(String(params.templatesDir), String(params.templateFile))}' does not exist`);
       }
     }
 

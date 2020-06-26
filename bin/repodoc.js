@@ -27,8 +27,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var pu = __importStar(require("./config"));
-var du = __importStar(require("./doc"));
+var config = __importStar(require("./config"));
+var doc_1 = __importDefault(require("./doc"));
 var yargs_1 = __importDefault(require("yargs"));
 var main = function () {
     var args = yargs_1.default.options({
@@ -37,13 +37,13 @@ var main = function () {
         copyProjectsDocs: { type: 'boolean', default: true },
     })
         .argv;
-    pu.initParams(args.configFile)
-        .then(pu.updateParamsWithArgs)
-        .then(function (params) { return pu.askParams(params, args.askParams); })
-        .then(pu.validateParams)
-        .then(function (params) { return pu.writeParamsToFile(params, args.configFile); })
-        .then(du.createDoc)
-        .catch(function (e) { return console.error(e.message); });
+    config.initParams(args.configFile)
+        .then(config.updateParamsWithArgs)
+        .then(function (params) { return config.askParams(params, args.askParams); })
+        .then(config.validateParams)
+        .then(function (params) { return config.writeParamsToFile(params, args.configFile); })
+        .then(doc_1.default)
+        .catch(function (error) { return console.error(error); });
 };
 main();
 //# sourceMappingURL=repodoc.js.map

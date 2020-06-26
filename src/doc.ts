@@ -11,6 +11,7 @@ import path from 'path';
 
 import handlebars from 'handlebars';
 
+import * as config from './config';
 import { Params } from './config';
 import * as fsu from './fsUtils';
 
@@ -36,24 +37,35 @@ import * as fsu from './fsUtils';
  * - errors arises during creation process in other modules
  * 
  */
-export function createDoc(params:Params){
-    Promise.all([
-        getTemplate(params),
-        getProjects(params)
-            .then(projects => addProjectDescriptions(projects, params))
-            .then(projects => fetchProjectsDocs(projects, params))
-    ])
-        .then((values:any) => {
-            const template = values[0];
-            const projects = values[1];
-            return createHtmlString(template, projects);
-            
-        })
-        .then(htmlString => writeHtmlFile(htmlString, params))
-        .then(console.log)
-        .catch(error => { throw error })
-}
+export default function createDoc(params: Params): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+        Promise.all([
+            config.validateParams(params),
+            getTemplate(params),
+            getProjects(params)
+                .then(projects => addProjectDescriptions(projects, params))
+                .then(projects => fetchProjectsDocs(projects, params))
+        ])
+            .then((values: any) => {
+                const paramsValidated = values[0]
+                // console.log(paramsValidated)
+                const template = values[1]
+                const projects = values[2]
+                return createHtmlString(template, projects)
 
+            })
+            .then(htmlString => writeHtmlFile(htmlString, params))
+            .then(message =>{
+                console.log(message)
+                resolve(message)
+            })
+            // .catch(error => { throw error })
+            .catch(error => {
+                console.log(error)
+                reject(new Error(error))
+            })
+    })
+}
 /**
  * Reads the hbs template file and compiles it.
  * 
@@ -64,11 +76,11 @@ export function createDoc(params:Params){
  * - cannot be read
  * 
  */
-function getTemplate(params:Params): Promise<string> { 
+function getTemplate(params: Params): Promise<string> {
     return new Promise<string>((resolve: (value?: any) => void, reject: (reason: any) => void) => {
         fse.readFile(path.join(String(params.templatesDir), String(params.templateFile)), (error: any, data: any) => {
             if (error) {
-                reject (`cannot read template file (${error.message})`)
+                reject(`cannot read template file (${error.message})`)
                 return
             }
             resolve(handlebars.compile(data.toString()));
@@ -88,23 +100,23 @@ function getTemplate(params:Params): Promise<string> {
  * - contains no project(s)
  * 
  */
-function getProjects(params:Params): Promise<JSON> {
-return new Promise<JSON>((resolve, reject) => {
-        const inputFile:string = path.join(String(params.repoDir), String(params.projectsFile))
+function getProjects(params: Params): Promise<JSON> {
+    return new Promise<JSON>((resolve, reject) => {
+        const inputFile: string = path.join(String(params.repoDir), String(params.projectsFile))
         fse.readFile(inputFile, (error: any, data: any) => {
             if (error) {
-                reject (`cannot read projects file (${error.message})`)
+                reject(`cannot read projects file (${error.message})`)
                 return
             }
-            try{
+            try {
                 const projects = JSON.parse(data).projects
-                if (projects===undefined || Object.keys(projects).length<1){
-                    reject(new Error(`file ${inputFile} contains no project(s)"`).message);
+                if (projects === undefined || Object.keys(projects).length < 1) {
+                    reject(new Error(`file ${inputFile} contains no project(s)`).message);
                     return
                 }
                 resolve(projects)
-            }catch(error){
-                reject(new Error(`file ${path.join(inputFile)} contains no valid JSON"`).message);
+            } catch (error) {
+                reject(new Error(`file ${path.join(inputFile)} contains no valid JSON`).message);
             }
         })
     })
@@ -122,17 +134,17 @@ return new Promise<JSON>((resolve, reject) => {
  * - Chapter '<chapter title>' cannot be not found.
  *
  */
-function extractProjectDescription(sourceText:string, params:Params):string {
+function extractProjectDescription(sourceText: string, params: Params): string {
     const description_title = String(params.projectsDescriptionTitle)
     const header_mark = "#"
     const search_title = header_mark + " " + description_title;
     let description_title_offset = sourceText.indexOf(search_title);
-    if (description_title_offset<0) {
+    if (description_title_offset < 0) {
         throw new Error(`Chapter '${description_title}' not found`)
     }
     description_title_offset = description_title_offset + 3; // add line feeds
 
-    let description_text = sourceText.substring(description_title_offset + description_title.length,sourceText.length).trim();
+    let description_text = sourceText.substring(description_title_offset + description_title.length, sourceText.length).trim();
     let descpription_length = sourceText.length;
     descpription_length = description_text.indexOf(header_mark);
     description_text = description_text.substring(0, descpription_length).trim();
@@ -154,17 +166,17 @@ function extractProjectDescription(sourceText:string, params:Params):string {
  * throws no error(s)
  *  
  */
-function getProjectDescription (project:any,params:Params):Promise<string> {
+function getProjectDescription(project: any, params: Params): Promise<string> {
     return new Promise<string>((resolve) => {
-        const inputFile:string = path.join(String(params.repoDir),project.root, "readme.md");
-        fse.readFile(inputFile, (error:any, data:any) => {
+        const inputFile: string = path.join(String(params.repoDir), project.root, "readme.md");
+        fse.readFile(inputFile, (error: any, data: any) => {
             if (error) {
                 console.warn(`cannot read file (${error})`)
                 resolve("no descrption due to missing file")
-            }else{
-                try{
-                    resolve(extractProjectDescription(data.toString(),params))
-                }catch(error){
+            } else {
+                try {
+                    resolve(extractProjectDescription(data.toString(), params))
+                } catch (error) {
                     console.warn(`no description due to ${error} in file ${inputFile}`)
                     resolve(`no description`)
                 }
@@ -184,12 +196,12 @@ function getProjectDescription (project:any,params:Params):Promise<string> {
  * throws no error(s)
  * 
  */
-function addProjectDescriptions(projects:Object, params:Params):Promise<any> {
+function addProjectDescriptions(projects: Object, params: Params): Promise<any> {
 
     return new Promise((resolve) => {
-        const keys:string[] = Object.keys(projects);
-        Promise.all(keys.map((key:string, index:number) => getProjectDescription(projects[key], params)))
-            .then((repodocDescriptions:string[]) => {
+        const keys: string[] = Object.keys(projects);
+        Promise.all(keys.map((key: string, index: number) => getProjectDescription(projects[key], params)))
+            .then((repodocDescriptions: string[]) => {
                 keys.map((key, index) => projects[key].repodocDescription = repodocDescriptions[index]);
                 resolve(projects);
             })
@@ -212,12 +224,12 @@ function addProjectDescriptions(projects:Object, params:Params):Promise<any> {
  * throws no errors 
  * 
  */
-function fetchProjectsDocs(projects:any, params:Params):Promise<any> {
+function fetchProjectsDocs(projects: any, params: Params): Promise<any> {
 
     return new Promise((resolve) => {
-        const keys:string[] = Object.keys(projects);
-        Promise.all(keys.map((key:string) => fetchProjectDocs(key, projects[key], params)))
-            .then((repodocReferences:string[]) => {
+        const keys: string[] = Object.keys(projects);
+        Promise.all(keys.map((key: string) => fetchProjectDocs(key, projects[key], params)))
+            .then((repodocReferences: string[]) => {
                 keys.map((key, index) => projects[key].repodocReference = repodocReferences[index]);
                 resolve(projects);
             })
@@ -249,24 +261,24 @@ function fetchProjectsDocs(projects:any, params:Params):Promise<any> {
  * throws no errors 
  * 
  */
-function fetchProjectDocs (projectName:string, project:any, params:Params):Promise<string> {
+function fetchProjectDocs(projectName: string, project: any, params: Params): Promise<string> {
     return new Promise<string>((resolve) => {
         const inputDir = path.join(String(params.repoDir), project.root, String(params.projectsDocsDir));
-        if (!fsu.dirExists(inputDir)){
-            console.warn(`${inputDir} does not exits`)
+        if (!fsu.dirExists(inputDir)) {
+            console.warn(`${inputDir} does not exist`)
             resolve(projectName)
             return
         }
-        if (params.copyProjectsDocs){
+        if (params.copyProjectsDocs) {
             fse.copy(inputDir, path.join(String(params.outputDir), projectName, String(params.projectsDocsDir)), function (error) {
-                if (error){
+                if (error) {
                     console.warn(`cannot copy ${inputDir} to ${path.join(String(params.outputDir), projectName)} due to ${error}`)
                     resolve(projectName)
-                }else{
+                } else {
                     resolve('<a href="' + path.join(projectName, String(params.projectsDocsDir), "index.html") + '">' + projectName + '</a>')
                 }
-            });            
-        }else{
+            });
+        } else {
             resolve('<a href="' + path.join("..", inputDir, "index.html") + '">' + projectName + '</a>')
         }
     })
@@ -281,8 +293,8 @@ function fetchProjectDocs (projectName:string, project:any, params:Params):Promi
  * @returns {string} html string
  * 
  */
-function createHtmlString(template:any, projects:any):Promise<string>{
-    return new Promise<string>((resolve) => resolve(template({project:projects})))
+function createHtmlString(template: any, projects: any): Promise<string> {
+    return new Promise<string>((resolve) => resolve(template({ project: projects })))
 }
 
 /**
@@ -299,15 +311,15 @@ function createHtmlString(template:any, projects:any):Promise<string>{
  * - file cannot be written.
  * 
  */
-function writeHtmlFile(htmlString:string, params:Params):Promise<string>{
+function writeHtmlFile(htmlString: string, params: Params): Promise<string> {
     return new Promise<string>((resolve, reject) => {
         const outputFile = path.join(String(params.outputDir), String(params.outputFile))
-        fse.writeFile(outputFile, htmlString, (error:any) => {
-        if (error) {
-            reject (error)
-            return
-        }
-        resolve(`html file saved to ${outputFile}`)
+        fse.writeFile(outputFile, htmlString, (error: any) => {
+            if (error) {
+                reject(error)
+                return
+            }
+            resolve(`html file saved to ${outputFile}`)
         })
     })
 }

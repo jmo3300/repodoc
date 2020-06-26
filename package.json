@@ -12,7 +12,8 @@
   },
   "scripts": {
     "build": "rimraf ./bin && tsc",
-    "doc": "rimraf ./docs/html && typedoc -out ./docs/html ./src"
+    "doc": "rimraf ./docs/html && typedoc -out ./docs/html ./src",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts"
   },
   "keywords": [
     "repodoc",
@@ -29,6 +30,7 @@
     "@types/figlet": "^1.2.0",
     "@types/fs-extra": "^9.0.1",
     "@types/inquirer": "^6.5.0",
+    "@types/rimraf": "^3.0.0",
     "@types/yargs": "^15.0.5",
     "chalk": "^4.1.0",
     "clear": "^0.1.0",
@@ -42,7 +44,17 @@
     "minimist": "^1.2.5",
     "simple-git": "^2.6.0",
     "touch": "^3.1.0",
+    "typescript": "^3.9.5",
     "valid-filename": "^3.1.0",
     "yargs": "^15.3.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/chai-as-promised": "^7.1.2",
+    "@types/mocha": "^7.0.2",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^8.0.1",
+    "ts-node": "^8.10.2"
   }
 }
