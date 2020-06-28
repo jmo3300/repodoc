@@ -79,6 +79,13 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_doc_.project.html" class="tsd-kind-icon">Project</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_doc_.projects.html" class="tsd-kind-icon">Projects</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_doc_.html#addprojectdescriptions" class="tsd-kind-icon">add<wbr>Project<wbr>Descriptions</a></li>
@@ -102,13 +109,13 @@
 					<a name="addprojectdescriptions" class="tsd-anchor"></a>
 					<h3>add<wbr>Project<wbr>Descriptions</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Project<wbr>Descriptions<span class="tsd-signature-symbol">(</span>projects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span>, params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Project<wbr>Descriptions<span class="tsd-signature-symbol">(</span>projects<span class="tsd-signature-symbol">: </span><a href="../interfaces/_doc_.projects.html" class="tsd-signature-type">Projects</a>, params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:187</li>
+									<li>Defined in doc.ts:219</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -119,7 +126,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>projects: <span class="tsd-signature-type">Object</span></h5>
+									<h5>projects: <a href="../interfaces/_doc_.projects.html" class="tsd-signature-type">Projects</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>an object with enumerable string objects (an object for each project, angular.json structure)</p>
 									</div>
@@ -141,13 +148,13 @@
 					<a name="createdoc" class="tsd-anchor"></a>
 					<h3>create<wbr>Doc</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Doc<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Doc<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:39</li>
+									<li>Defined in doc.ts:60</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -176,7 +183,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>nothing (for instance) but consumes the params by logging them to the console</p>
 							<p>throws an error if</p>
 							<ul>
@@ -195,7 +202,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:284</li>
+									<li>Defined in doc.ts:316</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -233,7 +240,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:125</li>
+									<li>Defined in doc.ts:157</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -266,13 +273,13 @@
 					<a name="fetchprojectdocs" class="tsd-anchor"></a>
 					<h3>fetch<wbr>Project<wbr>Docs</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">fetch<wbr>Project<wbr>Docs<span class="tsd-signature-symbol">(</span>projectName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, project<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">fetch<wbr>Project<wbr>Docs<span class="tsd-signature-symbol">(</span>projectName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, project<span class="tsd-signature-symbol">: </span><a href="../interfaces/_doc_.project.html" class="tsd-signature-type">Project</a>, params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:252</li>
+									<li>Defined in doc.ts:284</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -300,7 +307,7 @@
 									</div>
 								</li>
 								<li>
-									<h5>project: <span class="tsd-signature-type">any</span></h5>
+									<h5>project: <a href="../interfaces/_doc_.project.html" class="tsd-signature-type">Project</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Object with all project details (see structure of angular.json)
 										particually project&#39;s root directory which is also part of destination path of a potential copy</p>
@@ -321,13 +328,13 @@
 					<a name="fetchprojectsdocs" class="tsd-anchor"></a>
 					<h3>fetch<wbr>Projects<wbr>Docs</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">fetch<wbr>Projects<wbr>Docs<span class="tsd-signature-symbol">(</span>projects<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">fetch<wbr>Projects<wbr>Docs<span class="tsd-signature-symbol">(</span>projects<span class="tsd-signature-symbol">: </span><a href="../interfaces/_doc_.projects.html" class="tsd-signature-type">Projects</a>, params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:215</li>
+									<li>Defined in doc.ts:247</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -343,7 +350,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>projects: <span class="tsd-signature-type">any</span></h5>
+									<h5>projects: <a href="../interfaces/_doc_.projects.html" class="tsd-signature-type">Projects</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Object with all projects (see structure of angular.json)</p>
 									</div>
@@ -362,13 +369,13 @@
 					<a name="getprojectdescription" class="tsd-anchor"></a>
 					<h3>get<wbr>Project<wbr>Description</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Project<wbr>Description<span class="tsd-signature-symbol">(</span>project<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Project<wbr>Description<span class="tsd-signature-symbol">(</span>project<span class="tsd-signature-symbol">: </span><a href="../interfaces/_doc_.project.html" class="tsd-signature-type">Project</a>, params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:157</li>
+									<li>Defined in doc.ts:189</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -379,7 +386,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>project: <span class="tsd-signature-type">any</span></h5>
+									<h5>project: <a href="../interfaces/_doc_.project.html" class="tsd-signature-type">Project</a></h5>
 								</li>
 								<li>
 									<h5>params: <a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a></h5>
@@ -403,13 +410,13 @@
 					<a name="getprojects" class="tsd-anchor"></a>
 					<h3>get<wbr>Projects</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Projects<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">JSON</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Projects<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_doc_.projects.html" class="tsd-signature-type">Projects</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:91</li>
+									<li>Defined in doc.ts:123</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -423,7 +430,7 @@
 									<h5>params: <a href="../interfaces/_config_.params.html" class="tsd-signature-type">Params</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">JSON</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_doc_.projects.html" class="tsd-signature-type">Projects</a><span class="tsd-signature-symbol">&gt;</span></h4>
 							<p>projects with their details</p>
 							<p>throws an error if the file</p>
 							<ul>
@@ -444,7 +451,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:67</li>
+									<li>Defined in doc.ts:99</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -477,7 +484,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in doc.ts:302</li>
+									<li>Defined in doc.ts:334</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -517,8 +524,14 @@
 					<li class=" tsd-kind-module">
 						<a href="_config_.html">&quot;config&quot;</a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="_config_spec_.html">&quot;config.spec&quot;</a>
+					</li>
 					<li class="current tsd-kind-module">
 						<a href="_doc_.html">&quot;doc&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="_doc_spec_.html">&quot;doc.spec&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="_fsutils_.html">&quot;fs<wbr>Utils&quot;</a>
@@ -530,6 +543,12 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_doc_.project.html" class="tsd-kind-icon">Project</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_doc_.projects.html" class="tsd-kind-icon">Projects</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_doc_.html#addprojectdescriptions" class="tsd-kind-icon">add<wbr>Project<wbr>Descriptions</a>
 					</li>

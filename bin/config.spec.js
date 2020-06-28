@@ -39,19 +39,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var fs_1 = __importDefault(require("fs"));
 require("mocha");
 var chai_1 = __importDefault(require("chai"));
 var expect = chai_1.default.expect;
 var chai_as_promised_1 = __importDefault(require("chai-as-promised"));
 chai_1.default.use(chai_as_promised_1.default);
 var config_1 = require("./config");
-beforeEach(function () { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        return [2 /*return*/];
-    });
-}); });
+beforeEach(function () {
+    try {
+        fs_1.default.rmdirSync('./repodoc', { recursive: true });
+    }
+    catch (error) {
+        console.log(error);
+    }
+    try {
+        if (fs_1.default.existsSync('./repodoc.json')) {
+            fs_1.default.unlinkSync('./repodoc.json');
+        }
+    }
+    catch (error) {
+        console.log(error);
+    }
+    try {
+        fs_1.default.rmdirSync('./wrong', { recursive: true });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
 describe('validateParams()', function () {
-    it("should throw error with multiple errors", function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should throw error with multiple errors concerning input directories", function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, expect(config_1.validateParams({
@@ -64,7 +82,51 @@ describe('validateParams()', function () {
                         templateFile: "wrong",
                         outputDir: 'repodoc',
                         outputFile: 'index.html'
-                    })).to.be.rejectedWith("multipe errors in parameters:\n- repository directory \'wrong\' is not valid\n- templates directory \'wrong\' is not valid\n")];
+                    })).to.be.rejectedWith("multipe errors in parameters:\n- repository directory \'wrong\' is not valid\n- template file \'wrong\\wrong\' does not exist\n")];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});
+describe('validateParams()', function () {
+    it("should throw error with multiple errors concerning input files", function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, expect(config_1.validateParams({
+                        copyProjectsDocs: true,
+                        repoDir: 'example',
+                        projectsFile: "wrong",
+                        projectsDocsDir: "wrong",
+                        projectsDescriptionTitle: "wrong",
+                        templatesDir: 'templates',
+                        templateFile: "wrong",
+                        outputDir: 'repodoc',
+                        outputFile: 'index.html'
+                    })).to.be.rejectedWith("multipe errors in parameters:\n- projects file \'example\\wrong\' does not exist\n- template file \'templates\\wrong\' does not exist\n")];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+});
+describe('validateParams()', function () {
+    it("should throw error multiple errors concerning directories and files not necessarily present", function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, expect(config_1.validateParams({
+                        copyProjectsDocs: true,
+                        repoDir: 'example',
+                        projectsFile: "angular.json",
+                        projectsDocsDir: "<?>",
+                        projectsDescriptionTitle: "Overview",
+                        templatesDir: 'templates',
+                        templateFile: "index.hbs",
+                        outputDir: '<?>',
+                        outputFile: '<?>'
+                    })).to.be.rejectedWith("multipe errors in parameters:\n- projects documentation directory \'<?>\' is not valid\n- output directory \'<?>\' is not valid\n- outputfile name \'<?>\' is not valid\n")];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];

@@ -34,10 +34,6 @@ Install dependencies according article
 
         npm install chai mocha ts-node @types/chai @types/mocha --save-dev
 
-
-
-
-
 ## Implementation
 
 ### Preparation
@@ -73,6 +69,20 @@ So create
         touch index.hbs (an empty file is enough as template file at the moment for cli)
         cd..
 
-### rpd.ts
 
-Create application file rpd.ts
+// TODO: complete and finalize initial dev_log
+
+
+## 0.0.15
+
+### Make '"strict": true' possible
+
+So, eleminate type 'any' in terms of projects
+
+implement and add Interfaces 'Project' and 'Projects'
+
+eleminate "Object.keys(paramsDefault).map((key: string) => params[key] = args[key]);"
+
+Now, full '"strict": true' is possible.
+
+This in turn avoids to accept implicite any (before "noImplicitAny": false has been necessary due to projects:any and keys...)

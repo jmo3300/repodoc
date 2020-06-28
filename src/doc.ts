@@ -15,6 +15,26 @@ import * as config from './config';
 import { Params } from './config';
 import * as fsu from './fsUtils';
 
+/**
+ * projectType and root are the properties will be fetched from projects file (angular.json)
+ * 
+ * repodocReference and repodocDescription will be added by repodoc
+ * 
+ */
+export interface Project {
+    "projectType": string,
+    "root": string,
+    "repodocReference"?: string,
+    "repodocDescription"?:string
+}
+
+/**
+ * indexable interface according structure of projects file ( see object 'projects' in dangular.json)
+ * 
+ */
+export interface Projects{
+    [index:string]:Project
+}
 
 /**
  * Creates the Documentation, in detail:
@@ -77,7 +97,7 @@ export default function createDoc(params: Params): Promise<string> {
  * 
  */
 function getTemplate(params: Params): Promise<string> {
-    return new Promise<string>((resolve: (value?: any) => void, reject: (reason: any) => void) => {
+    return new Promise<string>((resolve: (value: any) => void, reject: (reason: any) => void) => {
         fse.readFile(path.join(String(params.templatesDir), String(params.templateFile)), (error: any, data: any) => {
             if (error) {
                 reject(`cannot read template file (${error.message})`)
@@ -100,8 +120,8 @@ function getTemplate(params: Params): Promise<string> {
  * - contains no project(s)
  * 
  */
-function getProjects(params: Params): Promise<JSON> {
-    return new Promise<JSON>((resolve, reject) => {
+function getProjects(params: Params): Promise<Projects> {
+    return new Promise<Projects>((resolve, reject) => {
         const inputFile: string = path.join(String(params.repoDir), String(params.projectsFile))
         fse.readFile(inputFile, (error: any, data: any) => {
             if (error) {
@@ -109,7 +129,7 @@ function getProjects(params: Params): Promise<JSON> {
                 return
             }
             try {
-                const projects = JSON.parse(data).projects
+                const projects:Projects = JSON.parse(data).projects
                 if (projects === undefined || Object.keys(projects).length < 1) {
                     reject(new Error(`file ${inputFile} contains no project(s)`).message);
                     return
@@ -166,7 +186,7 @@ function extractProjectDescription(sourceText: string, params: Params): string {
  * throws no error(s)
  *  
  */
-function getProjectDescription(project: any, params: Params): Promise<string> {
+function getProjectDescription(project: Project, params: Params): Promise<string> {
     return new Promise<string>((resolve) => {
         const inputFile: string = path.join(String(params.repoDir), project.root, "readme.md");
         fse.readFile(inputFile, (error: any, data: any) => {
@@ -196,7 +216,7 @@ function getProjectDescription(project: any, params: Params): Promise<string> {
  * throws no error(s)
  * 
  */
-function addProjectDescriptions(projects: Object, params: Params): Promise<any> {
+function addProjectDescriptions(projects: Projects, params: Params): Promise<any> {
 
     return new Promise((resolve) => {
         const keys: string[] = Object.keys(projects);
@@ -224,7 +244,7 @@ function addProjectDescriptions(projects: Object, params: Params): Promise<any> 
  * throws no errors 
  * 
  */
-function fetchProjectsDocs(projects: any, params: Params): Promise<any> {
+function fetchProjectsDocs(projects: Projects, params: Params): Promise<any> {
 
     return new Promise((resolve) => {
         const keys: string[] = Object.keys(projects);
@@ -261,7 +281,7 @@ function fetchProjectsDocs(projects: any, params: Params): Promise<any> {
  * throws no errors 
  * 
  */
-function fetchProjectDocs(projectName: string, project: any, params: Params): Promise<string> {
+function fetchProjectDocs(projectName: string, project: Project, params: Params): Promise<string> {
     return new Promise<string>((resolve) => {
         const inputDir = path.join(String(params.repoDir), project.root, String(params.projectsDocsDir));
         if (!fsu.dirExists(inputDir)) {

@@ -97,13 +97,43 @@ exports.initParams = function (configFile) {
                 return;
             }
             try {
-                var params_1 = JSON.parse(data.toString());
-                Object.keys(exports.paramsDefault).map(function (key) {
-                    if (params_1[key] === undefined) {
-                        params_1[key] = exports.paramsDefault[key];
-                    }
-                });
-                resolve(params_1);
+                var params = JSON.parse(data.toString());
+                // Object.keys(paramsDefault).map((key: string) => { // does not work without '"noImplicitAny": false's
+                //   if (params[key] === undefined) {
+                //     params[key] = paramsDefault[key]
+                //   }
+                // });
+                if (params.configFile === undefined) {
+                    params.configFile = exports.paramsDefault.configFile;
+                }
+                if (params.copyProjectsDocs === undefined) {
+                    params.copyProjectsDocs = exports.paramsDefault.copyProjectsDocs;
+                }
+                if (params.outputDir === undefined) {
+                    params.outputDir = exports.paramsDefault.outputDir;
+                }
+                if (params.outputFile === undefined) {
+                    params.outputFile = exports.paramsDefault.outputFile;
+                }
+                if (params.projectsDescriptionTitle === undefined) {
+                    params.projectsDescriptionTitle = exports.paramsDefault.projectsDescriptionTitle;
+                }
+                if (params.projectsDocsDir === undefined) {
+                    params.projectsDocsDir = exports.paramsDefault.projectsDocsDir;
+                }
+                if (params.projectsFile === undefined) {
+                    params.projectsFile = exports.paramsDefault.projectsFile;
+                }
+                if (params.repoDir === undefined) {
+                    params.repoDir = exports.paramsDefault.repoDir;
+                }
+                if (params.templateFile === undefined) {
+                    params.templateFile = exports.paramsDefault.templateFile;
+                }
+                if (params.templatesDir === undefined) {
+                    params.templatesDir = exports.paramsDefault.templatesDir;
+                }
+                resolve(params);
             }
             catch (error) {
                 console.warn("using default parameters due to file " + configFile + " not a valid configuration file");
@@ -128,7 +158,15 @@ exports.updateParamsWithArgs = function (params) {
             outputFile: { type: 'string', default: params.outputFile }
         }).strict()
             .argv;
-        Object.keys(exports.paramsDefault).map(function (key) { return params[key] = args[key]; });
+        // Object.keys(paramsDefault).map((key: string) => params[key] = args[key]);  // does not work without '"noImplicitAny": false'
+        params.repoDir = args.repoDir;
+        params.projectsFile = args.projectsFile;
+        params.projectsDocsDir = args.projectsDocsDir;
+        params.projectsDescriptionTitle = args.projectsDescriptionTitle;
+        params.templatesDir = args.templatesDir;
+        params.templateFile = args.templateFile;
+        params.outputDir = args.outputDir;
+        params.outputFile = args.outputFile;
         resolve(params);
     });
 };
@@ -220,7 +258,7 @@ function askParams(params, askParams) {
                         })];
                 case 5:
                     projectsDescpriptionTitle = _a.sent();
-                    params.projectsDescriptionTitle = projectsDocsDir['description title'];
+                    params.projectsDescriptionTitle = projectsDescpriptionTitle['description title'];
                     return [4 /*yield*/, inquirer_1.default.prompt({
                             name: 'templates directory',
                             type: 'input',
@@ -317,6 +355,9 @@ exports.validateParams = function (params) {
             if (!fsu.fileExists(path_1.default.join(String(params.repoDir), String(params.projectsFile)))) {
                 errors.push("projects file '" + path_1.default.join(String(params.repoDir), String(params.projectsFile)) + "' does not exist");
             }
+        }
+        if (!fsu.dirCreate(String(params.projectsDocsDir))) {
+            errors.push("projects documentation directory '" + String(params.projectsDocsDir) + "' is not valid");
         }
         if (!fsu.dirExists(String(params.templatesDir))) {
             errors.push("templates directory '" + String(params.templatesDir) + "' is not valid");

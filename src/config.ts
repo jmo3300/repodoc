@@ -102,11 +102,21 @@ export const initParams = function (configFile: string): Promise<Params> {
       }
       try {
         let params: Params = JSON.parse(data.toString());
-        Object.keys(paramsDefault).map((key: string) => {
-          if (params[key] === undefined) {
-            params[key] = paramsDefault[key]
-          }
-        });
+        // Object.keys(paramsDefault).map((key: string) => { // does not work without '"noImplicitAny": false's
+        //   if (params[key] === undefined) {
+        //     params[key] = paramsDefault[key]
+        //   }
+        // });
+          if (params.configFile === undefined) { params.configFile = paramsDefault.configFile}  
+          if (params.copyProjectsDocs === undefined) { params.copyProjectsDocs = paramsDefault.copyProjectsDocs}  
+          if (params.outputDir === undefined) { params.outputDir = paramsDefault.outputDir}  
+          if (params.outputFile === undefined) { params.outputFile = paramsDefault.outputFile}
+          if (params.projectsDescriptionTitle === undefined) { params.projectsDescriptionTitle = paramsDefault.projectsDescriptionTitle}  
+          if (params.projectsDocsDir === undefined) { params.projectsDocsDir = paramsDefault.projectsDocsDir}  
+          if (params.projectsFile === undefined) { params.projectsFile = paramsDefault.projectsFile}
+          if (params.repoDir === undefined) { params.repoDir = paramsDefault.repoDir}
+          if (params.templateFile === undefined) { params.templateFile = paramsDefault.templateFile}
+          if (params.templatesDir === undefined) { params.templatesDir = paramsDefault.templatesDir}
         resolve(params);
       } catch (error) {
         console.warn(`using default parameters due to file ${configFile} not a valid configuration file`);
@@ -134,7 +144,15 @@ export const updateParamsWithArgs = function (params: Params): Promise<Params> {
     }).strict()
       .argv
 
-    Object.keys(paramsDefault).map((key: string) => params[key] = args[key]);
+    // Object.keys(paramsDefault).map((key: string) => params[key] = args[key]);  // does not work without '"noImplicitAny": false'
+    params.repoDir = args.repoDir
+    params.projectsFile = args.projectsFile
+    params.projectsDocsDir = args.projectsDocsDir
+    params.projectsDescriptionTitle = args.projectsDescriptionTitle
+    params.templatesDir = args.templatesDir
+    params.templateFile = args.templateFile
+    params.outputDir = args.outputDir
+    params.outputFile = args.outputFile
 
     resolve(params);
 
@@ -226,7 +244,7 @@ export async function askParams(params: Params, askParams: boolean) {
     default: params.projectsDescriptionTitle,
     message: 'Enter the title of chapter with app description:',
   })
-  params.projectsDescriptionTitle = projectsDocsDir['description title'];
+  params.projectsDescriptionTitle = projectsDescpriptionTitle['description title'];
 
 
   const templatesDir = await inquirer.prompt({
@@ -317,6 +335,10 @@ export const validateParams = function (params: Params): Promise<Params> {
       if (!fsu.fileExists(path.join(String(params.repoDir), String(params.projectsFile)))) {
         errors.push(`projects file '${path.join(String(params.repoDir), String(params.projectsFile))}' does not exist`);
       }
+    }
+
+    if (!fsu.dirCreate(String(params.projectsDocsDir))) {
+      errors.push(`projects documentation directory '${String(params.projectsDocsDir)}' is not valid`);
     }
 
     if (!fsu.dirExists(String(params.templatesDir))) {
