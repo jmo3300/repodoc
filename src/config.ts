@@ -104,7 +104,7 @@ export const initParams = function (configFile: string): Promise<Params> {
         let params: Params = JSON.parse(data.toString());
         // Object.keys(paramsDefault).map((key: string) => { // does not work without '"noImplicitAny": false's
         //   if (params[key] === undefined) {
-        //     params[key] = paramsDefault[key]
+        //     params[key] = paramsDefault[key] 
         //   }
         // });
           if (params.configFile === undefined) { params.configFile = paramsDefault.configFile}  
