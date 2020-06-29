@@ -1,4 +1,13 @@
-<a name="0.0.14"></a>
+<a name="0.0.16"></a>
+
+# [0.0.16](https://github.com/jmo3300/repodoc/compare/0.0.16...0.0.15) (2020-06-29)
+
+## Features
+
+- graphical schemas added to doc
+
+## Bug fixes
+
 
 # [0.0.15](https://github.com/jmo3300/repodoc/compare/0.0.15...0.0.14) (2020-06-28)
 
@@ -11,6 +20,7 @@
 
 - some minor bugs fixed
 
+
 # [0.0.14](https://github.com/jmo3300/repodoc/compare/0.0.13...0.0.14) (2020-06-26)
 
 ## Features
@@ -20,6 +30,7 @@
 ## Bug fixes
 
 - some minor bugs fixed
+
 
 # [0.0.13](https://github.com/jmo3300/repodoc/compare/0.0.12...0.0.13) (2020-06-25)
 

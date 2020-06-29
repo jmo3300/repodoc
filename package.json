@@ -12,7 +12,7 @@
   },
   "scripts": {
     "build": "rimraf ./bin && tsc",
-    "doc": "rimraf ./docs/html && typedoc -out ./docs/html ./src",
+    "doc": "rimraf ./docs/html && typedoc -out ./docs/html ./src --media ./docs/assets/images",
     "test": "mocha -r ts-node/register src/**/config.spec.ts"
   },
   "keywords": [

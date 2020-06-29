@@ -6,6 +6,8 @@ Repodoc creates an app index in html for a (n angular) monorepo/multiapp project
 
 Assembles docs of all apps (, if desired).
 
+![Graphic: Tasks](docs/assets/images/tasks.svg)
+
 ## Features
 
 Repodoc
@@ -49,6 +51,9 @@ For the first trial copy theses two directories into the directory you will star
 Start repodoc just by entering
 
     repodoc
+
+![Graphic: Quick Start](docs/assets/images/quickStart.svg)
+
 
 Commit all parameters without any change.
 
