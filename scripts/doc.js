@@ -1,7 +1,8 @@
 // create documentation
 const TypeDoc = require('typedoc');
 const app = new TypeDoc.Application();
-
+// runs with "npx ./scripts/doc.js" 
+// but not with npm run doc (when package.json contains "scripts": {... "doc":"scripts/doc.js" ...})
 app.bootstrap({
     mode: 'modules',
     exclude: "**/*+(index|.spec|.e2e).ts",    
