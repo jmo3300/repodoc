@@ -3,5 +3,6 @@ bin/*.spec.js
 node_modules
 example/node_modules
 src
+sripts
 repodoc
 repodoc.json

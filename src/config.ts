@@ -1,10 +1,12 @@
 /**
- * Manage the configuration of Repodoc. Provides
+ * Manage the configuration of Repodoc.
+ * 
+ * Provides
  * 
  * - the **interfaces** for controlling the creation process
  *   - **Params** consists of all parameters the doc module (creation process) needs
  *   - **Args** extends **Params** with some other Parameters needed for run control
- * - several function for managing/persisting/validating/using the configuration parameters
+ * - several functions for managing/persisting/validating/using the configuration parameters
  * 
  * @packageDocumentation
  */
