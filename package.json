@@ -13,7 +13,7 @@
   "scripts": {
     "prebuild": "rimraf ./bin",
     "build": "tsc",
-    "doc": "scripts/doc.js",
+    "doc": "typedoc -out ./docs/html && cpx ./docs/assets/**/* ./docs/html/docs/assets",
     "test": "mocha -r ts-node/register src/**/config.spec.ts"
   },
   "keywords": [
