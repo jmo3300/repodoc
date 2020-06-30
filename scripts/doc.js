@@ -1,4 +1,10 @@
 // create documentation
+// use 'npx run doc' due to 
+// script does not work using 'npm run doc' when package.json contains '"scripts": "./scripts/doc.js"'
+// by now same functionality is set by with 
+// "scripts": {...
+//     "doc": "typedoc -out ./docs/html --exclude \"**/*+(index|.spec|.e2e).ts\" && cpx ./docs/assets/**/* ./docs/html/docs/assets",
+//  }
 const TypeDoc = require('typedoc');
 const app = new TypeDoc.Application();
 // runs with "npx ./scripts/doc.js" 
