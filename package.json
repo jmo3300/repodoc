@@ -13,7 +13,7 @@
   "scripts": {
     "prebuild": "rimraf ./bin",
     "build": "tsc",
-    "doc": "typedoc -out ./docs/html && cpx ./docs/assets/**/* ./docs/html/docs/assets",
+    "doc": "typedoc -out ./docs/html --exclude \"**/*+(index|.spec|.e2e).ts\" && cpx ./docs/assets/**/* ./docs/html/docs/assets",
     "test": "mocha -r ts-node/register src/**/config.spec.ts"
   },
   "keywords": [
