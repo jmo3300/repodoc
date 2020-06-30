@@ -1,6 +1,6 @@
 <a name="0.0.16"></a>
 
-# [0.0.17](https://github.com/jmo3300/repodoc/compare/0.0.17...0.0.16) 
+# [0.0.17](https://github.com/jmo3300/repodoc/compare/0.0.17...0.0.16) (2020-06-30)
 
 ## Features
 
