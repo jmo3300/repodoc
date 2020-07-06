@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <ul>
+            {{#each project}}
+                <li>{{@key}}, reference: {{{this.repodocReference}}}, description: {{ this.repodocDescription }}</li>
+            {{/each}}
+
+        </ul>
+    </body>
+</html>

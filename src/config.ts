@@ -83,7 +83,7 @@ export interface Args extends Params {
 
 export const paramsDefault: Params = <Params>{
   copyProjectsDocs: true,
-  repoDir: path.join('.', 'example'),
+  repoDir: path.join('.'),
   projectsFile: "angular.json",
   projectsDocsDir: "compodoc",
   projectsDescriptionTitle: "Overview",
@@ -234,7 +234,7 @@ export async function askParams(params: Params, askParams: boolean) {
       if (fsu.isValidDirectoryName(value)) {
         return true;
       } else {
-        return 'Please enter an existing projects file:';
+        return 'Please enter a valid directory name:';
       }
     }
   })
@@ -255,7 +255,7 @@ export async function askParams(params: Params, askParams: boolean) {
     default: params.templatesDir,
     message: 'Enter your templates directory:',
     validate: function (value: string) {
-      if (fsu.isValidDirectoryName(value)) {
+      if (fsu.dirExists(value)) {
         return true;
       } else {
         return 'Please enter a valid directory name:';

@@ -1,4 +1,15 @@
-<a name="0.0.16"></a>
+<a name="0.0.18"></a>
+
+# [0.0.18](https://github.com/jmo3300/repodoc/compare/0.0.18...0.0.17) (2020-06-07)
+
+## Features
+
+- parameter defaults adapted to real appliance
+
+## Bug fixes
+
+- take projects file (angular.json) from repoDir
+- docs graphics corrected
 
 # [0.0.17](https://github.com/jmo3300/repodoc/compare/0.0.17...0.0.16) (2020-06-30)
 
